@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion – Plateforme Acupuncture</title>
+    <link rel="stylesheet" href="/site/style.css">
+</head>
+<body>
+<div class="background-image">
+    <header>
+        <nav role="navigation" aria-label="Menu principal">
+            <a href="../index.php">Accueil</a>
+            <a href="../index.php?page=patho">Pathologies</a>
+            <a href="../index.php?page=contact">Contact</a>
+            <span class="nav-status">
+            {% if session.username is defined %}
+                <span class="nav-user">Bienvenue, {{ session.username }}</span> |
+                <a href="../index.php?page=logout">Déconnexion</a>
+            {% else %}
+                <a href="../index.php?page=login">Connexion</a> |
+                <a href="../index.php?page=signup">Inscription</a>
+            {% endif %}
+            </span>
+        </nav>
+    </header>
+    <main class="container">
+        <h1>Connexion</h1>
+        {% if erreur %}
+            <div class="alert alert-danger" style="color: red;" role="alert" aria-live="assertive">{{ erreur }}</div>
+        {% endif %}
+        {% if succes %}
+            <div class="alert alert-success" style="color: green;" role="alert" aria-live="polite">{{ succes }}</div>
+        {% endif %}
+        <form action="../index.php?page=login" method="post" aria-label="Formulaire de connexion">
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" id="username" name="username" required autocomplete="username">
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required autocomplete="current-password">
+            <input type="submit" value="Connexion">
+        </form>
+        <p>Pas encore de compte ? <a href="../index.php?page=signup">Créer un compte</a></p>
+    </main>
+    <footer>
+        © 2025 Plateforme d’acupuncture
+    </footer>
+</div>
+</body>
+</html>

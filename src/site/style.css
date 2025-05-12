@@ -1,0 +1,200 @@
+/* Global styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  background-color: #f9f9f9;
+}
+
+a {
+  color: #0077aa;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+  outline: 2px solid #0a9396;
+  outline-offset: 2px;
+  background-color: #e0f7fa;
+  transition: outline 0.2s;
+}
+
+/* Background container */
+.background-image {
+  background-image: url('../img/bg.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navigation menu */
+nav {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 1em 2em;
+  display: flex;
+  gap: 1em;
+}
+
+nav a {
+  color: white;
+  font-weight: bold;
+}
+
+nav .nav-status {
+  color: #fff !important;
+  font-weight: bold;
+  font-size: inherit;
+}
+
+nav .nav-user {
+  color: #fff !important;
+  font-weight: bold;
+  font-size: inherit;
+  letter-spacing: 0.5px;
+}
+
+/* Main container */
+.container {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2em;
+  margin: 2em auto;
+  border-radius: 8px;
+  max-width: 1600px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Forms */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+label {
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  padding: 0.8em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  background-color: white;
+}
+
+input[type="submit"] {
+  background-color: #005f73;
+  color: white;
+  border: none;
+  padding: 0.8em;
+  font-size: 1em;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #0a9396;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1em;
+  font-size: 0.9em;
+  color: #f0f0f0;
+  background-color: rgba(0, 0, 0, 0.7);
+  margin-top: auto;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  nav {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .container {
+      margin: 1em;
+      padding: 1.5em;
+  }
+}
+
+/* SECTION : Pathologies disponibles */
+.pathology-list {
+  margin-top: 2em;
+  padding: 1.5em;
+  background-color: #ffffffee;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.pathology-list h2 {
+  margin-bottom: 1em;
+  font-size: 1.3em;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.5em;
+}
+
+/* Liste des pathologies */
+.pathology-list ul {
+  list-style: disc inside;
+  padding-left: 1em;
+}
+
+.pathology-list li {
+  margin-bottom: 1.5em;
+  line-height: 1.6;
+}
+
+/* Lien "Voir détails" */
+.pathology-list a {
+  display: inline-block;
+  margin-top: 0.3em;
+  color: #0077aa;
+  font-weight: bold;
+  
+}
+
+.pathology-list a:hover {
+  color: #005f73;
+  text-decoration: underline;
+}
+
+/* Formulaire de recherche plus large */
+.search-bar {
+  margin-top: 1.5em;
+  margin-bottom: 2em;
+}
+
+.search-bar input[type="text"] {
+  width: 100%;
+  padding: 0.9em;
+  font-size: 1em;
+}
+
+.search-bar input[type="submit"] {
+  width: 100%;
+  font-size: 1em;
+  padding: 0.9em;
+  background-color: #006d77;
+}
+
+/* Pagination */
+nav.pagination {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1.5em 1em;
+  margin: 0 auto;
+  
+}
+
+

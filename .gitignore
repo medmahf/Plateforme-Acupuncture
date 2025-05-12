@@ -1,0 +1,52 @@
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+
+# Cache et sessions PHP
+cache/
+tmp/
+sessions/
+*.bak
+*.swp
+
+# Paramètres locaux
+.env
+config.php
+db.php
+
+# Dossiers IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Déploiement
+node_modules/
+vendor/
+
+# Uploads ou fichiers générés
+uploads/
+images/uploads/
+*.zip
+*.tar.gz
+
+# Exclure les fichiers sensibles
+*.pem
+*.key
+
+# Sauvegardes
+*~
+*.old
+*.orig
+
+# Apache (si utilisé)
+.htaccess
+
+# Fichiers de test temporaires
+test.php
+test_*.html

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Pathologies – Plateforme Acupuncture</title>
+    <link rel="stylesheet" href="/site/style.css">
+</head>
+<body>
+
+<div class="background-image">
+    <header>
+        <nav role="navigation" aria-label="Menu principal">
+            <a href="../index.php">Accueil</a>
+            <a href="../index.php?page=patho">Pathologies</a>
+            <a href="../index.php?page=contact">Contact</a>
+            <span class="nav-status">
+            {% if session.username is defined %}
+                <span class="nav-user">Bienvenue, {{ session.username }}</span> |
+                <a href="../index.php?page=logout">Déconnexion</a>
+            {% else %}
+                <a href="../index.php?page=login">Connexion</a> |
+                <a href="../index.php?page=signup">Inscription</a>
+            {% endif %}
+            </span>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Liste des pathologies</h1>
+        <button id="toggle-api-view" type="button" style="margin-bottom:1em;">Afficher dynamiquement via l'API REST</button>
+        <div id="api-patho-list" style="display:none;">
+            <p><em>Chargement dynamique via l'API REST...</em></p>
+            <ul id="api-patho-ul"></ul>
+        </div>
+
+        <form method="get" action="../index.php" class="filter-bar" aria-label="Filtrer les pathologies" style="margin-bottom: 2em;">
+            <input type="hidden" name="page" value="patho">
+            <label for="type">Type :</label>
+            <select name="type" id="type">
+                <option value="">Tous</option>
+                {% for t in types %}
+                    <option value="{{ t }}" {% if t == selected_type %}selected{% endif %}>{{ t }}</option>
+                {% endfor %}
+            </select>
+            <label for="mer">Méridien :</label>
+            <select name="mer" id="mer">
+                <option value="">Tous</option>
+                {% for m in mers %}
+                    <option value="{{ m }}" {% if m == selected_mer %}selected{% endif %}>{{ m }}</option>
+                {% endfor %}
+            </select>
+            <label for="carac">Caractéristiques :</label>
+            <input type="text" name="carac" id="carac" value="{{ selected_carac }}" placeholder="mot-clé...">
+            <input type="submit" value="Filtrer">
+        </form>
+
+        {% if session.user_id is defined %}
+        <form method="get" action="../index.php" class="search-bar" aria-label="Recherche par mot-clé" style="margin-bottom: 2em;">
+            <input type="hidden" name="page" value="search">
+            <label for="motcle">Recherche par mot-clé (symptôme ou pathologie) :</label>
+            <input type="text" id="motcle" name="motcle" value="{{ search_query|default('') }}" placeholder="mot-clé..." required>
+            <input type="submit" value="Rechercher">
+        </form>
+        {% endif %}
+
+        <!-- Section liste dynamique -->
+        <section class="pathology-list">
+            <h2>Pathologies disponibles :</h2>
+            
+            <ul>
+                {% for item in data %}
+                    <li>
+                        <strong>{{ item.desc }}</strong>
+                        <a href="../index.php?page=info&idp={{ item.idp }}">[Voir détails]</a>
+                    </li>
+                {% else %}
+                    <li>Aucune pathologie à afficher.</li>
+                {% endfor %}
+            </ul>
+            {% if total_pages > 1 %}
+            <nav class="pagination" aria-label="Pagination des pathologies">
+                {% set base_url = '../index.php?page=patho'
+                    ~ (selected_type ? '&type=' ~ selected_type : '')
+                    ~ (selected_mer ? '&mer=' ~ selected_mer : '')
+                    ~ (selected_carac ? '&carac=' ~ selected_carac : '') %}
+                <ul style="display:flex;gap:0.5em;list-style:none;padding:0;">
+                    {% if page_num > 1 %}
+                        <li><a href="{{ base_url }}&page_num={{ page_num - 1 }}">&laquo; Précédent</a></li>
+                    {% endif %}
+                    {% for p in 1..total_pages %}
+                        <li>
+                            {% if p == page_num %}
+                                <span style="font-weight:bold;text-decoration:underline;">{{ p }}</span>
+                            {% else %}
+                                <a href="{{ base_url }}&page_num={{ p }}">{{ p }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                    {% if page_num < total_pages %}
+                        <li><a href="{{ base_url }}&page_num={{ page_num + 1 }}">Suivant &raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer>
+        © 2025 Plateforme d’acupuncture
+    </footer>
+</div>
+
+<script>
+const btn = document.getElementById('toggle-api-view');
+const apiDiv = document.getElementById('api-patho-list');
+const apiUl = document.getElementById('api-patho-ul');
+let apiVisible = false;
+btn.addEventListener('click', function() {
+    apiVisible = !apiVisible;
+    apiDiv.style.display = apiVisible ? 'block' : 'none';
+    btn.textContent = apiVisible ? 'Masquer l\'affichage dynamique' : 'Afficher dynamiquement via l\'API REST';
+    if(apiVisible) {
+        apiUl.innerHTML = '<li>Chargement...</li>';
+        fetch('../api.php?ressource=pathologies')
+            .then(r => r.json())
+            .then(data => {
+                if(Array.isArray(data) && data.length > 0) {
+                    apiUl.innerHTML = data.map(item => `<li><strong>${item.desc}</strong> (Type: ${item.type}, Méridien: ${item.mer})</li>`).join('');
+                } else {
+                    apiUl.innerHTML = '<li>Aucune pathologie trouvée.</li>';
+                }
+            })
+            .catch(() => {
+                apiUl.innerHTML = '<li>Erreur lors du chargement des données.</li>';
+            });
+    }
+});
+</script>
+
+</body>
+</html>

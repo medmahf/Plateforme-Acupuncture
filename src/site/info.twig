@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail Pathologie – Plateforme Acupuncture</title>
+    <link rel="stylesheet" href="/site/style.css">
+</head>
+<body>
+
+<div class="background-image">
+    <header>
+        <nav role="navigation" aria-label="Menu principal">
+            <a href="../index.php">Accueil</a>
+            <a href="../index.php?page=patho">Pathologies</a>
+            <a href="../index.php?page=contact">Contact</a>
+            <span class="nav-status">
+            {% if session.username is defined %}
+                <span class="nav-user">Bienvenue, {{ session.username }}</span> |
+                <a href="../index.php?page=logout">Déconnexion</a>
+            {% else %}
+                <a href="../index.php?page=login">Connexion</a> |
+                <a href="../index.php?page=signup">Inscription</a>
+            {% endif %}
+            </span>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Détail de la pathologie</h1>
+
+        <section class="pathology-detail">
+            <h2>Nom : <span>{{ info.desc_patho }}</span></h2>
+            <p><strong>Type :</strong> {{ info.type }}</p>
+            <p><strong>Méridien concerné :</strong> {{ info.nom_meridien }} ({{ info.mer }})</p>
+
+            <h3>Symptômes associés :</h3>
+            <ul>
+                {% for symptome in symptomes %}
+                    <li>{{ symptome }}</li>
+                {% else %}
+                    <li>Aucun symptôme associé.</li>
+                {% endfor %}
+            </ul>
+
+            <h3>Mots-clés associés :</h3>
+            <ul>
+                {% for mot in mots_cles %}
+                    <li>{{ mot }}</li>
+                {% else %}
+                    <li>Aucun mot-clé associé.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        © 2025 Plateforme d’acupuncture
+    </footer>
+</div>
+
+</body>
+</html>

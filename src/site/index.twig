@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Accueil – Plateforme Acupuncture{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/site/style.css">
+</head>
+<body>
+
+<div class="background-image">
+    <header>
+    <nav role="navigation" aria-label="Menu principal">
+        <a href="../index.php" aria-current="page">Accueil</a>
+        <a href="../index.php?page=patho">Pathologies</a>
+        <a href="../index.php?page=contact">Contact</a>
+        <span class="nav-status">
+        {% if session.username is defined %}
+            <span class="nav-user">Bienvenue, {{ session.username }}</span> |
+            <a href="../index.php?page=logout">Déconnexion</a>
+        {% else %}
+            <a href="../index.php?page=login">Connexion</a> |
+            <a href="../index.php?page=signup">Inscription</a>
+        {% endif %}
+        </span>
+    </nav>
+    </header>
+
+    <main class="container">
+        <h1>Plateforme d’Exploration des Pathologies en Acupuncture</h1>
+        <p style="font-size:1.1em;max-width:800px;line-height:1.7;">
+            L’acupuncture est une pratique millénaire issue de la médecine traditionnelle chinoise, qui vise à rétablir l’équilibre énergétique du corps par la stimulation de points précis à l’aide de fines aiguilles. Cette plateforme vous permet de découvrir, filtrer et rechercher les différentes pathologies et symptômes reconnus en acupuncture, d’en comprendre les liens avec les méridiens et d’explorer les principes fondamentaux de cette discipline. Que vous soyez étudiant, praticien ou simplement curieux, vous trouverez ici une ressource complète et accessible pour approfondir vos connaissances sur l’acupuncture.
+        </p>
+        {% if succes_connexion %}
+            <div class="alert alert-success" style="color: green;" role="alert" aria-live="polite">{{ succes_connexion }}</div>
+        {% endif %}
+        <h2>Bienvenue sur la plateforme d’acupuncture</h2>
+        <p>Veuillez vous connecter pour accéder à toutes les fonctionnalités :</p>
+        <form action="../index.php?page=login" method="post" aria-label="Formulaire de connexion">
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" id="username" name="username" required autocomplete="username">
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required autocomplete="current-password">
+            <input type="submit" value="Connexion">
+        </form>
+        <p>Pas encore de compte ? <a href="../index.php?page=signup">Créer un compte</a></p>
+    </main>
+
+    <section class="about" style="margin:2em auto;max-width:900px;padding:1.5em 2em;background:rgba(255,255,255,0.95);border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+        <h2>À propos</h2>
+        <p>
+            Cette plateforme a été conçue pour faciliter l’exploration des pathologies et des principes de l’acupuncture, en s’appuyant sur la médecine traditionnelle chinoise. Elle propose une base de données structurée, des outils de recherche et de filtrage, ainsi qu’une interface accessible à tous. L’objectif est de rendre l’information claire, fiable et utile, que vous soyez étudiant, professionnel de santé ou simplement curieux de découvrir l’univers de l’acupuncture.
+        </p>
+    </section>
+
+    <footer>
+        © 2025 Association des Acupuncteurs Soucieux de l’Accessibilité
+    </footer>
+</div>
+
+</body>
+</html>
