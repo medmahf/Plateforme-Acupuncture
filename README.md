@@ -3,7 +3,7 @@
 ## Auteurs
 **Module TIDAL - CPE Lyon**
 
-- Projet réalisé par : Agustin Alvarez Bianco Luciano, Ahmed Sidi Mohamed Mahfoud, Belbachir Yassine, Martin Maxence.
+- Projet réalisé par : Ahmed Sidi Mohamed Mahfoud, Agustin Alvarez Bianco Luciano, Belbachir Yassine, Martin Maxence.
 
 
 ## Description
